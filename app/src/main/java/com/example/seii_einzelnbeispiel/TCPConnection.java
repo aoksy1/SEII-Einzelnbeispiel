@@ -32,7 +32,13 @@ public class TCPConnection extends Thread {
             DataOutputStream outToServer = new DataOutputStream(clientSocket.getOutputStream());
             BufferedReader inFromServer = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
             outToServer.writeBytes(matriculationNumber + '\n');
-            Log.e("Tag", "amar "+inFromServer.readLine() + matriculationNumber);
+            final String response = inFromServer.readLine();
+            responseText.post(new Runnable() {
+                @Override
+                public void run() {
+                    responseText.setText(response);
+                }
+            });
 
         } catch (IOException e) {
             e.printStackTrace();
