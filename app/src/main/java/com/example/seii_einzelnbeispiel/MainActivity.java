@@ -8,8 +8,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
-    static String hostname = "se2-isys.aau.at";
-    static int port = 53212;
+    final String hostname = "se2-isys.aau.at";
+    final int port = 53212;
     Button btnSendRequest;
     EditText txtMatriculationNumber;
     TextView txtResponseText;
@@ -23,7 +23,10 @@ public class MainActivity extends AppCompatActivity {
         txtMatriculationNumber = (EditText) findViewById(R.id.editTextNumberSigned);
         txtResponseText = (TextView) findViewById(R.id.textView2);
 
-        TCPConnection tcpConnection = new TCPConnection(hostname, port, txtResponseText);
-        tcpConnection.start();
+
+        btnSendRequest.setOnClickListener(v -> {
+            TCPConnection tcpConnection = new TCPConnection(hostname, port, txtResponseText, txtMatriculationNumber.getText().toString());
+            tcpConnection.start();
+        });
     }
 }
