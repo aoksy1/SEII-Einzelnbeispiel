@@ -36,7 +36,7 @@
         android:layout_marginBottom="148dp"
         android:ems="10"
         android:hint="11830551"
-        android:inputType="numberSigned"
+        android:inputType="number"
         app:layout_constraintBottom_toTopOf="@+id/textView2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
