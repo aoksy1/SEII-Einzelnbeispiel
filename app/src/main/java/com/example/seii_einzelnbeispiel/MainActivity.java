@@ -41,7 +41,8 @@ public class MainActivity extends AppCompatActivity {
             matriculationNumber = txtMatriculationNumber.getText().toString();
             if(!matriculationNumber.isEmpty() && matriculationNumber.matches("[0-9]+")){
                 Rechner rechner = new Rechner(txtResponseText);
-                rechner.querSumme(matriculationNumber);
+                int matriculationNumberSum = rechner.querSumme(matriculationNumber);
+                rechner.intToBinary(matriculationNumberSum);
             }
             else if(matriculationNumber.isEmpty()) Toast.makeText(getApplicationContext(), "Please enter matricualation number!", Toast.LENGTH_SHORT).show();
             else Toast.makeText(getApplicationContext(), "Matriculation number must contain only numbers!", Toast.LENGTH_SHORT).show();
