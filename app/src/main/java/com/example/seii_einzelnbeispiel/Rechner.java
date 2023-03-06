@@ -20,10 +20,8 @@ public class Rechner {
         return numbersSum;
     }
 
-    public String intToBinary(int number){
+    public void intToBinary(int number){
         String binary = Integer.toBinaryString(number);
-
-        Log.e("TAG", "amar "+binary);
 
         final String result = binary;
         responseTextView.post(new Runnable() {
@@ -32,6 +30,5 @@ public class Rechner {
                 responseTextView.setText(result);
             }
         });
-        return result;
     }
 }
