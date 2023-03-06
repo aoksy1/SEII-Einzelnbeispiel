@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.*;
 
 import java.io.BufferedReader;
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.ServerSocket;
@@ -58,8 +59,19 @@ public class TCPConnectionTest {
     }
 
     @Test
-    public void testTCPConnectionServerSendsRespondToClient() {
-        
+    public void testTCPConnectionServerSendsRespondToClient() throws IOException, InterruptedException {
+        String expectedResponse = "You are enrolled!";
+
+        BufferedReader inFromClient = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+        String matriculationNumber = inFromClient.readLine();
+        assertEquals("12345678", matriculationNumber);
+
+        DataOutputStream outToClient = new DataOutputStream(clientSocket.getOutputStream());
+        outToClient.writeBytes(expectedResponse + '\n');
+
+        tcpConnection.join();
+        String actualResponse = tcpConnection.getResponse();
+        assertEquals(expectedResponse, actualResponse);
     }
 
     @AfterEach
