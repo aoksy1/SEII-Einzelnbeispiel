@@ -1,11 +1,9 @@
 package com.example.seii_einzelnbeispiel;
 
-import org.junit.*;
-import org.mockito.Mock;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import static org.junit.Assert.*;
-
-import android.widget.TextView;
+import org.junit.jupiter.api.*;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -23,17 +21,14 @@ public class TCPConnectionTest {
     private Socket clientSocket;
     TCPConnection tcpConnection;
 
-    @Mock
-    private TextView responseTextView;
-
-    @Before
+    @BeforeEach
     public void setup() throws IOException {
         int port = 1234;
         serverSocket = new ServerSocket(port);
 
         String hostname = "localhost";
 
-        tcpConnection = new TCPConnection(hostname, port, responseTextView, "12345678");
+        tcpConnection = new TCPConnection(hostname, port, "12345678");
 
         tcpConnection.start();
 
@@ -64,6 +59,11 @@ public class TCPConnectionTest {
 
     @Test
     public void testTCPConnectionServerSendsRespondToClient() {
+        
+    }
 
+    @AfterEach
+    public void teardown() throws IOException {
+        serverSocket.close();
     }
 }

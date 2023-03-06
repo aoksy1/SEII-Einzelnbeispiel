@@ -30,10 +30,17 @@ public class MainActivity extends AppCompatActivity {
         btnSendRequest.setOnClickListener(v -> {
             matriculationNumber = txtMatriculationNumber.getText().toString();
             if(!matriculationNumber.isEmpty() && matriculationNumber.matches("[0-9]+")){
-                TCPConnection tcpConnection = new TCPConnection(hostname, port, txtResponseText, matriculationNumber);
+                TCPConnection tcpConnection = new TCPConnection(hostname, port, matriculationNumber);
                 tcpConnection.start();
+                try {
+                    tcpConnection.join();
+                    txtResponseText.setText(tcpConnection.getResponse());
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
             }
-            else if(matriculationNumber.isEmpty()) Toast.makeText(getApplicationContext(), "Please enter matricualation number!", Toast.LENGTH_SHORT).show();
+            else if(matriculationNumber.isEmpty()) Toast.makeText(getApplicationContext(), "Please enter matriculation number!", Toast.LENGTH_SHORT).show();
             else Toast.makeText(getApplicationContext(), "Matriculation number must contain only numbers!", Toast.LENGTH_SHORT).show();
         });
 
@@ -44,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
                 int matriculationNumberSum = rechner.querSumme(matriculationNumber);
                 txtResponseText.setText(rechner.intToBinary(matriculationNumberSum));
             }
-            else if(matriculationNumber.isEmpty()) Toast.makeText(getApplicationContext(), "Please enter matricualation number!", Toast.LENGTH_SHORT).show();
+            else if(matriculationNumber.isEmpty()) Toast.makeText(getApplicationContext(), "Please enter matriculation number!", Toast.LENGTH_SHORT).show();
             else Toast.makeText(getApplicationContext(), "Matriculation number must contain only numbers!", Toast.LENGTH_SHORT).show();
         });
     }

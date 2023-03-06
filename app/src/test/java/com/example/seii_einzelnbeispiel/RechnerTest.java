@@ -1,9 +1,8 @@
 package com.example.seii_einzelnbeispiel;
 
-import org.junit.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.mock;
+import org.junit.jupiter.api.*;
 
 /**
  * Example local unit test, which will execute on the development machine (host).
@@ -13,7 +12,7 @@ import static org.mockito.Mockito.mock;
 public class RechnerTest {
     Rechner rechner;
 
-    @Before
+    @BeforeEach
     public void setup(){
         rechner = new Rechner();
     }

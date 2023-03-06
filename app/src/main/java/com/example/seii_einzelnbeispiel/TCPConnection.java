@@ -14,16 +14,19 @@ import java.net.Socket;
 
 public class TCPConnection extends Thread {
     private Socket clientSocket;
+    private String response;
     private final String hostname;
     private final int port;
-    private final TextView responseTextView;
     private final String matriculationNumber;
 
-    public TCPConnection(String hostname, int port, TextView responseText, String matriculationNumber) {
+    public TCPConnection(String hostname, int port, String matriculationNumber) {
         this.hostname = hostname;
         this.port = port;
-        this.responseTextView = responseText;
         this.matriculationNumber = matriculationNumber;
+    }
+
+    public String getResponse(){
+        return response;
     }
 
     public void run(){
@@ -35,13 +38,7 @@ public class TCPConnection extends Thread {
             BufferedReader inFromServer = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
             outToServer.writeBytes(matriculationNumber + '\n');
             
-            final String response = inFromServer.readLine();
-            responseTextView.post(new Runnable() {
-                @Override
-                public void run() {
-                    responseTextView.setText(response);
-                }
-            });
+            response = inFromServer.readLine();
 
         } catch (IOException e) {
             Log.e("TCPConnection", "Error", e);
