@@ -14,22 +14,46 @@ import android.widget.TextView;
  * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
  */
 public class ExampleUnitTest {
-    @Test
-    public void addition_isCorrect() {
-        assertEquals(4, 2 + 2);
+    Rechner rechner;
+
+    @Before
+    public void setup(){
+        rechner = new Rechner();
     }
 
     @Test
     public void testValidMatriculationNumberSum(){
-        Rechner rechner = new Rechner(null);
         int result = rechner.querSumme("12345678");
+
         assertEquals(36, result);
     }
 
     @Test
     public void testEmptyMatriculationNumberSum(){
-        Rechner rechner = new Rechner(null);
         int result = rechner.querSumme("");
+
         assertEquals(0, result);
+    }
+
+    @Test
+    public void testIntToBinary(){
+        String result = rechner.intToBinary(24);
+
+        assertEquals("11000", result);
+    }
+
+    @Test
+    public void testZeroToBinary(){
+        String result = rechner.intToBinary(0);
+
+        assertEquals("0", result);
+    }
+
+    @Test
+    public void testMatriculationNumberToSumToBinary(){
+        int sum = rechner.querSumme("11830552");
+        String result = rechner.intToBinary(sum);
+
+        assertEquals("11001", result);
     }
 }
